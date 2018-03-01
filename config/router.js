@@ -3,11 +3,11 @@ import { StackNavigator } from 'react-navigation';
 
 import UserDetail from '../screens/UserDetail';
 
-export const FirstRNativeStack = StackNavigator ({
+export const AppStack = StackNavigator ({
     UserDetail: {
         screen: UserDetail,
         navigationOptions: {
-            title: ({state}) => `${state.params.first_name}`
+            title: 'USER DETAIL - NO STATE YET'
         },
     },
 });

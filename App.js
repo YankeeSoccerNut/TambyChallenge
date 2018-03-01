@@ -34,7 +34,7 @@ export default class App extends Component<Props> {
               } else if (result.isCancelled) {
                 alert("Login was cancelled");
               } else {
-                this.props.navigation.navigate('UserDetail', result.grantedPermissions);
+                this.props.navigation.navigate('UserDetail', {});
                 // alert("Login was successful with permissions: " + result.grantedPermissions)
               }
             }

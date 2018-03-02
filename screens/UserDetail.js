@@ -4,14 +4,15 @@ import { Tile, List, ListItem } from 'react-native-elements';
 
 class UserDetail extends Component {
     render() {
+        console.log(this.props.navigation.state.params);
         const { picture, first_name, last_name, email } = this.props.navigation.state.params;
 
         return (
             <ScrollView>
                 <Tile
-                    imageSrc={{ uri: picture.large }}
+                    // imageSrc={{ uri: picture.large }}
                     featured
-                    title={`${first_name.toUpperCase()} ${last_name.toUpperCase()}`}
+                    title={`${first_name} ${last_name}`}
                     caption={email}
                 />
 

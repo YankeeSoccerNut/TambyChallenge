@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 
 // 2018-03-01 SLA:  For FB Login START
-import FBSDK, { LoginButton } from 'react-native-fbsdk';
+import FBSDK, { LoginButton, AccessToken } from 'react-native-fbsdk';
 // 2018-03-01 SLA:  For FB Login END
 
 export default class HomeScreen extends Component {
@@ -26,7 +26,12 @@ export default class HomeScreen extends Component {
                             } else if (result.isCancelled) {
                                 alert("Login was cancelled");
                             } else {
-                                this.props.navigation.navigate('Thinker', {});
+                                AccessToken.getCurrentAccessToken().then((data)=>{
+                                    if(data) {
+                                        this.props.navigation.navigate('UserDetail',{data});
+                                    }
+                                });
+                                // this.props.navigation.navigate('Thinker', {});
                                 // alert("Login was successful with permissions: " + result.grantedPermissions)
                             }
                         }

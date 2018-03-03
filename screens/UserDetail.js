@@ -7,7 +7,10 @@ import {
 } from 'react-native';
 
 // 2018-03-01 SLA:  For FB Login START
-import FBSDK, { LoginButton, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
+import FBSDK, { LoginButton } from 'react-native-fbsdk';
+import FacebookGraph from '../apis/FaceBook';
+
+// import FBSDK, { LoginButton, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
 // 2018-03-01 SLA:  For FB Login END
 
 class UserDetail extends Component {
@@ -28,18 +31,26 @@ class UserDetail extends Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         // Create a graph request asking for user information with a callback to handle the response.
-        const infoRequest = new GraphRequest(
-            '/me?fields=name,picture',
-            null,
-            this._responseInfoCallback
-        );
-        // Start the graph request.
-        new GraphRequestManager().addRequest(infoRequest).start();
+        // const infoRequest = new GraphRequest(
+        //     '/me?fields=name,picture',
+        //     null,
+        //     this._responseInfoCallback
+        // );
+        // // Start the graph request.
+        // new GraphRequestManager().addRequest(infoRequest).start();
+
+        // improvement based on Tamby's feedback "S" in SOLID.
+        // Abstracts how the data is fetched from this presentational component and increases reusability
+
+        new FacebookGraph().getProfile(this._responseInfoCallback);
     }
 
     render() {
+
+        // On initial render we won't have thing to display...so don't render
+        if (this.state.name === '' && this.state.pic === '') return null;
 
         return (
             <View style={styles.container}>
